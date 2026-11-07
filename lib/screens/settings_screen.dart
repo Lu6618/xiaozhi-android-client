@@ -8,6 +8,7 @@ import 'package:ai_assistant/models/dify_config.dart';
 import 'package:ai_assistant/models/minimax_config.dart';
 import 'package:ai_assistant/widgets/settings_section.dart';
 import 'package:ai_assistant/services/dify_service.dart';
+import 'package:ai_assistant/screens/xiaozhi_ota_activation_screen.dart';
 
 // 引入main.dart中定义的常量
 import 'package:ai_assistant/main.dart' show enableDebugTools;
@@ -1917,6 +1918,35 @@ class _SettingsScreenState extends State<SettingsScreen>
                 ),
                 child: Column(
                   children: [
+                    // 官网六位数字码连接（与原生版相同）
+                    Card(
+                      margin: const EdgeInsets.only(bottom: 12),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      color: Theme.of(context).colorScheme.primaryContainer,
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 8),
+                        leading: const Icon(Icons.qr_code_2),
+                        title: const Text(
+                          '官网六位数字码连接',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: const Text('在小智官网输入六位数字码绑定设备'),
+                        trailing:
+                            const Icon(Icons.arrow_forward_ios, size: 16),
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const XiaozhiOtaActivationScreen(),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
                     if (xiaozhiConfigs.isEmpty)
                       const Padding(
                         padding: EdgeInsets.all(16),
