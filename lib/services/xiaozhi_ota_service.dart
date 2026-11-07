@@ -133,7 +133,13 @@ class XiaozhiOtaService {
     final resp = await http
         .post(
           Uri.parse(otaEndpoint),
-          headers: {'Content-Type': 'application/json'},
+          headers: {
+            'Content-Type': 'application/json',
+            // 原生版同样在 Header 里带设备身份，缺了会被服务器 400 拒绝
+            'Device-Id': mac,
+            'Client-Id': uuid,
+            'User-Agent': 'xingzhi-ios/1.0.0',
+          },
           body: jsonEncode(body),
         )
         .timeout(const Duration(seconds: 15));
