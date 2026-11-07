@@ -112,6 +112,27 @@ class ConfigProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  // OTA 官网绑定专用：用服务器下发的 WebSocket 地址和 token 建配置（带指定 MAC）
+  Future<XiaozhiConfig> addXiaozhiConfigWithToken(
+    String name,
+    String websocketUrl,
+    String macAddress,
+    String token,
+  ) async {
+    final newConfig = XiaozhiConfig(
+      id: DateTime.now().millisecondsSinceEpoch.toString(),
+      name: name,
+      websocketUrl: websocketUrl,
+      macAddress: macAddress,
+      token: token,
+    );
+
+    _xiaozhiConfigs.add(newConfig);
+    await _saveConfigs();
+    notifyListeners();
+    return newConfig;
+  }
+
   Future<void> updateXiaozhiConfig(XiaozhiConfig updatedConfig) async {
     final index = _xiaozhiConfigs.indexWhere(
       (config) => config.id == updatedConfig.id,
